@@ -63,9 +63,6 @@ function log(...args) {
   console.log(new Date().toISOString(), '|', ...args);
 }
 
-if (!DERIV_CLIENT_SECRET) {
-  log('ADVERTENCIA: DERIV_CLIENT_SECRET no esta configurado. El intercambio de token va a fallar.');
-}
 if (PUBLIC_BASE_URL.includes('CAMBIAR-ESTO')) {
   log('ADVERTENCIA: PUBLIC_BASE_URL no esta configurado con tu URL real de Render.');
 }
@@ -217,7 +214,6 @@ async function exchangeCodeForToken(code, codeVerifier) {
       code: String(code),
       redirect_uri: REDIRECT_URI,
       client_id: DERIV_CLIENT_ID,
-      client_secret: DERIV_CLIENT_SECRET,
       code_verifier: codeVerifier,
     }),
   });
@@ -280,7 +276,6 @@ app.post('/api/refresh', async (req, res) => {
         grant_type: 'refresh_token',
         refresh_token,
         client_id: DERIV_CLIENT_ID,
-        client_secret: DERIV_CLIENT_SECRET,
       }),
     });
 
